@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>神王传说</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Awesome -->
+  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  
+  <!-- 自定义配置 -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#6C5CE7',
+            secondary: '#00CEFF',
+            accent: '#FF2E63',
+            dark: '#192A56',
+            light: '#F5F6FA'
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          },
+        },
+      }
+    }
+  </script>
+  
+  <style type="text/tailwindcss">
+    @layer utilities {
+      .content-auto {
+        content-visibility: auto;
+      }
+      .text-shadow {
+        text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      }
+      .text-glow {
+        text-shadow: 0 0 10px rgba(108, 92, 231, 0.7), 
+                     0 0 20px rgba(108, 92, 231, 0.5);
+      }
+      .bg-gradient-hero {
+        background: linear-gradient(135deg, #192A56 0%, #6C5CE7 100%);
+      }
+      .animate-float {
+        animation: float 6s ease-in-out infinite;
+      }
+      .animate-float-reverse {
+        animation: float 8s ease-in-out infinite reverse;
+      }
+      .animate-float-slow {
+        animation: float 10s ease-in-out infinite;
+      }
+      .animate-float-fast {
+        animation: float 4s ease-in-out infinite;
+      }
+    }
+    
+    @keyframes float {
+      0% {
+        transform: translateY(0px) rotate(0deg);
+      }
+      50% {
+        transform: translateY(-20px) rotate(5deg);
+      }
+      100% {
+        transform: translateY(0px) rotate(0deg);
+      }
+    }
+  </style>
+</head>
+
+<body class="bg-dark text-light overflow-x-hidden">
+  <!-- 浮动图片容器 -->
+  <div id="floating-images" class="fixed inset-0 -z-10 overflow-hidden">
+    <!-- 图片会通过JS动态添加 -->
+  </div>
+
+  <!-- 导航栏 -->
+  <nav class="fixed top-0 left-0 right-0 z-50 bg-dark/80 backdrop-blur-md transition-all duration-300">
+    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+      <a href="#" class="text-2xl font-bold text-primary text-glow flex items-center">
+        <i class="fa fa-rocket mr-2"></i>
+        <span>神王传说</span>
+      </a>
+      
+      <div class="hidden md:flex space-x-8">
+        <a href="#home" class="text-light hover:text-primary transition-colors duration-300">首页</a>
+        <a href="#about" class="text-light hover:text-primary transition-colors duration-300">关于</a>
+        <a href="#gallery" class="text-light hover:text-primary transition-colors duration-300">图库</a>
+        <a href="#contact" class="text-light hover:text-primary transition-colors duration-300">联系</a>
+      </div>
+      
+      <div class="md:hidden">
+        <button id="menu-toggle" class="text-light focus:outline-none">
+          <i class="fa fa-bars text-xl"></i>
+        </button>
+      </div>
+    </div>
+    
+    <!-- 移动端菜单 -->
+    <div id="mobile-menu" class="hidden md:hidden bg-dark/95 backdrop-blur-lg">
+      <div class="container mx-auto px-4 py-4 flex flex-col space-y-4">
+        <a href="#home" class="text-light hover:text-primary transition-colors duration-300 py-2">首页</a>
+        <a href="#about" class="text-light hover:text-primary transition-colors duration-300 py-2">关于</a>
+        <a href="#gallery" class="text-light hover:text-primary transition-colors duration-300 py-2">图库</a>
+        <a href="#contact" class="text-light hover:text-primary transition-colors duration-300 py-2">联系</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- 英雄区域 -->
+  <section id="home" class="min-h-screen flex items-center justify-center relative bg-gradient-hero pt-20">
+    <div class="container mx-auto px-4 py-16 text-center">
+      <h1 class="text-[clamp(2.5rem,8vw,5rem)] font-bold mb-6 text-glow">
+        龙瑞阳是<span class="text-accent">傻逼</span>
+      </h1>
+      <p class="text-[clamp(1.2rem,3vw,1.8rem)] mb-10 max-w-3xl mx-auto text-shadow">
+        k哥也是<span class="text-secondary">魅力十足</span>
+      </p>
+      <div class="flex flex-col sm:flex-row justify-center gap-4">
+        <a href="#gallery" class="bg-primary hover:bg-primary/80 text-white font-bold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-primary/50">
+          <i class="fa fa-images mr-2"></i>查看图库
+        </a>
+        <a href="#contact" class="bg-transparent border-2 border-secondary hover:bg-secondary/20 text-secondary font-bold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105">
+          <i class="fa fa-envelope mr-2"></i>联系我们
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 关于区域 -->
+  <section id="about" class="py-20 bg-dark relative">
+    <div class="container mx-auto px-4">
+      <h2 class="text-[clamp(1.8rem,5vw,3rem)] font-bold mb-12 text-center text-glow">
+        <i class="fa fa-info-circle mr-3"></i>关于我们
+      </h2>
+      
+      <div class="grid md:grid-cols-2 gap-12 items-center">
+        <div class="space-y-6">
+          <p class="text-lg leading-relaxed">
+            这里是关于龙瑞阳和k哥的精彩介绍。龙瑞阳以其猥琐的外表和傻逼的气质闻名，而k哥则以其独特的魅力和幽默感深受大家喜爱。
+          </p>
+          <p class="text-lg leading-relaxed">
+            我们致力于展示他们的风采和成就，为粉丝们提供一个了解他们的平台。无论你是新朋友还是老粉丝，都能在这里找到感兴趣的内容。
+          </p>
+          <div class="pt-4">
+            <a href="https://www.douyin.com/user/MS4wLjABAAAAdSs5WmC8YuYzpdy6a5HUhheRHQsiHDjdUSpCBgy8LJhdxtHKKEdAWQKQpdw1fQip?from_tab_name=main&is_search=0&list_name=follow&nt=0" class="inline-flex items-center text-secondary hover:text-secondary/80 transition-colors duration-300">
+              了解更多 <i class="fa fa-arrow-right ml-2"></i>
+            </a>
+          </div>
+        </div>
+        
+        <div class="relative">
+          <div class="w-full h-[400px] rounded-xl overflow-hidden shadow-2xl">
+            <img src="images/img3.jpg" alt="龙瑞阳和k哥的照片" class="w-full h-full object-cover">
+          </div>
+          <div class="absolute -bottom-6 -left-6 w-32 h-32 bg-accent rounded-lg animate-float-fast shadow-lg hidden md:block">
+            <div class="w-full h-full flex items-center justify-center">
+              <span class="text-white font-bold text-2xl">100+</span>
+            </div>
+          </div>
+          <div class="absolute -top-6 -right-6 w-24 h-24 bg-primary rounded-lg animate-float-reverse shadow-lg hidden md:block">
+            <div class="w-full h-full flex items-center justify-center">
+              <span class="text-white font-bold text-xl">粉丝</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 图库区域 -->
+  <section id="gallery" class="py-20 bg-gradient-to-b from-dark to-dark/90 relative">
+    <div class="container mx-auto px-4">
+      <h2 class="text-[clamp(1.8rem,5vw,3rem)] font-bold mb-12 text-center text-glow">
+        <i class="fa fa-picture-o mr-3"></i>图片展示
+      </h2>
+      
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- 图片卡片 1 -->
+        <div class="group bg-dark/50 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
+          <div class="h-64 overflow-hidden">
+            <img src="images/img4.jpg" alt="龙瑞阳照片" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+          </div>
+          <div class="p-6">
+            <h3 class="text-xl font-bold mb-2 text-primary">龙瑞阳风采</h3>
+            <p class="text-gray-300">展示龙瑞阳的猥琐外表和傻逼气质</p>
+            <div class="mt-4 flex justify-between items-center">
+              <span class="text-sm text-gray-400">2025年5月</span>
+              <a href="https://www.douyin.com/user/MS4wLjABAAAAKQYkUMapQ7lUs86dfPYRZyqvOHx5RVq2mrqHGhZW8U6Sa8xV5GU6GC91tg4ut1rA?from_tab_name=main" class="text-secondary hover:text-secondary/80 transition-colors duration-300">
+                <i class="fa fa-search-plus"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 图片卡片 2 -->
+        <div class="group bg-dark/50 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
+          <div class="h-64 overflow-hidden">
+            <img src="images/img2.jpg" alt="k哥照片" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+          </div>
+          <div class="p-6">
+            <h3 class="text-xl font-bold mb-2 text-primary">k哥魅力</h3>
+            <p class="text-gray-300">捕捉k哥的精彩瞬间和幽默风趣</p>
+            <div class="mt-4 flex justify-between items-center">
+              <span class="text-sm text-gray-400">2024年6月</span>
+              <a href="https://www.douyin.com/user/MS4wLjABAAAA0b_DzFQuaCs3p9a76rKqZ1GVuxQlAcWmaBoFEaXjCZnsLj81z4ZOrbd2BvXGtImB?from_tab_name=main" class="text-secondary hover:text-secondary/80 transition-colors duration-300">
+                <i class="fa fa-search-plus"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 图片卡片 3 -->
+        <div class="group bg-dark/50 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
+          <div class="h-64 overflow-hidden">
+            <img src="images/img1.jpg" alt="合作照片" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+          </div>
+          <div class="p-6">
+            <h3 class="text-xl font-bold mb-2 text-primary">合作瞬间</h3>
+            <p class="text-gray-300">记录龙瑞阳和k哥的精彩合作时刻</p>
+            <div class="mt-4 flex justify-between items-center">
+              <span class="text-sm text-gray-400">2024年7月</span>
+              <a href="https://www.douyin.com/user/self?from_tab_name=main&showTab=post" class="text-secondary hover:text-secondary/80 transition-colors duration-300">
+                <i class="fa fa-search-plus"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="text-center mt-12">
+        <a href="#gallery" class="inline-block bg-primary hover:bg-primary/80 text-white font-bold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-primary/50">
+          <i class="fa fa-th-large mr-2"></i>查看更多图片
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 联系区域 -->
+  <section id="contact" class="py-20 bg-dark relative">
+    <div class="container mx-auto px-4">
+      <h2 class="text-[clamp(1.8rem,5vw,3rem)] font-bold mb-12 text-center text-glow">
+        <i class="fa fa-comments mr-3"></i>联系我们
+      </h2>
+      
+
+        
+        <div class="flex flex-col justify-center">
+          <div class="mb-8">
+            <h3 class="text-2xl font-bold mb-4 text-primary">联系方式</h3>
+            <div class="space-y-4">
+              <div class="flex items-center">
+                <div class="w-12 h-12 bg-primary/20 rounded-full flex items-center justify-center mr-4">
+                  <i class="fa fa-envelope text-primary"></i>
+                </div>
+                <div>
+                  <h4 class="font-medium text-gray-300">邮箱</h4>
+                  <a href="mailto:2010212225@qq.com" class="text-secondary hover:text-secondary/80 transition-colors duration-300">2010212225@qq.com</a>
+                </div>
+              </div>
+              <div class="flex items-center">
+                <div class="w-12 h-12 bg-primary/20 rounded-full flex items-center justify-center mr-4">
+                  <i class="fa fa-phone text-primary"></i>
+                </div>
+                <div>
+                  <h4 class="font-medium text-gray-300">电话</h4>
+                  <a href="tel:+86 19337191822" class="text-secondary hover:text-secondary/80 transition-colors duration-300">+86 19337191822</a>
+                </div>
+              </div>
+              <div class="flex items-center">
+                <div class="w-12 h-12 bg-primary/20 rounded-full flex items-center justify-center mr-4">
+                  <i class="fa fa-map-marker text-primary"></i>
+                </div>
+                <div>
+                  <h4 class="font-medium text-gray-300">地址</h4>
+                  <p class="text-gray-400">河南省郑州市科学大道62号202楼北528</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div>
+            <h3 class="text-2xl font-bold mb-4 text-primary">关注我们</h3>
+            <div class="flex space-x-4">
+              <a href="https://www.weibo.com/u/7815982641" class="w-12 h-12 bg-primary/20 rounded-full flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all duration-300">
+                <i class="fa fa-weibo"></i>
+              </a>
+              <a href="https://www.weibo.com/u/6499720406" class="w-12 h-12 bg-primary/20 rounded-full flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all duration-300">
+                <i class="fa fa-wechat"></i>
+              </a>
+              <a href="https://www.weibo.com/u/2321126807" class="w-12 h-12 bg-primary/20 rounded-full flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all duration-300">
+                <i class="fa fa-instagram"></i>
+              </a>
+              <a href="https://www.weibo.com/u/5534975191" class="w-12 h-12 bg-primary/20 rounded-full flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all duration-300">
+                <i class="fa fa-youtube-play"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 页脚 -->
+  <footer class="bg-dark/80 backdrop-blur-md py-8 border-t border-gray-800">
+    <div class="container mx-auto px-4">
+      <div class="flex flex-col md:flex-row justify-between items-center">
+        <div class="mb-6 md:mb-0">
+          <a href="#" class="text-2xl font-bold text-primary text-glow flex items-center">
+            <i class="fa fa-rocket mr-2"></i>
+            <span>神王传说</span>
+          </a>
+          <p class="text-gray-400 mt-2">© 2023 龙瑞阳和k哥官方网站. 保留所有权利.</p>
+        </div>
+        
+        <div class="flex space-x-6">
+          <a href="#home" class="text-gray-400 hover:text-primary transition-colors duration-300">首页</a>
+          <a href="#about" class="text-gray-400 hover:text-primary transition-colors duration-300">关于</a>
+          <a href="#gallery" class="text-gray-400 hover:text-primary transition-colors duration-300">图库</a>
+          <a href="#contact" class="text-gray-400 hover:text-primary transition-colors duration-300">联系</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript -->
+  <script>
+    // 浮动图片数组
+    const imageUrls = [
+      'images/img3.jpg', // 龙瑞阳和k哥的照片
+      'images/img4.jpg', // 龙瑞阳照片
+      'images/img2.jpg', // k哥照片
+      'images/img1.jpg'  // 合作照片
+    ];
+    
+    // 检查图片是否存在
+    function checkImageExists(url) {
+      return new Promise(resolve => {
+        const img = new Image();
+        img.onload = () => resolve(true);
+        img.onerror = () => resolve(false);
+        img.src = url;
+      });
+    }
+    
+    // 浮动图片函数
+    async function createFloatingImages() {
+      const container = document.getElementById('floating-images');
+      
+      // 创建更多图片实例以获得更好的视觉效果
+      const totalImages = 12;
+      
+      for (let i = 0; i < totalImages; i++) {
+        const img = document.createElement('img');
+        const randomIndex = Math.floor(Math.random() * imageUrls.length);
+        const imageUrl = imageUrls[randomIndex];
+        
+        // 检查图片是否存在
+        const exists = await checkImageExists(imageUrl);
+        
+        if (exists) {
+          img.src = imageUrl;
+        } else {
+          // 如果图片不存在，使用示例图片
+          img.src = `https://picsum.photos/200/300?random=${i}`;
+          console.warn(`图片 ${imageUrl} 不存在，使用示例图片`);
+        }
+        
+        img.alt = `浮动图片 ${i+1}`;
+        img.classList.add('absolute', 'opacity-30', 'blur-sm', 'rounded-lg');
+        
+        // 随机位置
+        img.style.left = `${Math.random() * 100}vw`;
+        img.style.top = `${Math.random() * 100}vh`;
+        
+        // 随机大小
+        const size = Math.random() * 150 + 100;
+        img.style.width = `${size}px`;
+        img.style.height = 'auto';
+        
+        // 随机动画
+        const animationDuration = Math.random() * 20 + 10; // 10-30秒
+        const animationDelay = Math.random() * 5; // 0-5秒延迟
+        
+        // 使用CSS变量和内联样式设置动画
+        img.style.setProperty('--float-duration', `${animationDuration}s`);
+        img.style.setProperty('--float-delay', `${animationDelay}s`);
+        img.style.animation = 'customFloat var(--float-duration) ease-in-out var(--float-delay) infinite';
+        
+        // 随机缩放和旋转
+        const scale = Math.random() * 0.5 + 0.5;
+        const rotate = Math.random() * 360;
+        
+        img.style.transform = `scale(${scale}) rotate(${rotate}deg)`;
+        
+        container.appendChild(img);
+      }
+    }
+    
+    // 添加自定义浮动动画
+    function addCustomFloatAnimation() {
+      const style = document.createElement('style');
+      style.textContent = `
+        @keyframes customFloat {
+          0% {
+            transform: translateY(0px) rotate(0deg);
+            opacity: 0.3;
+          }
+          25% {
+            transform: translateY(-15px) rotate(5deg);
+            opacity: 0.4;
+          }
+          50% {
+            transform: translateY(-30px) rotate(0deg);
+            opacity: 0.3;
+          }
+          75% {
+            transform: translateY(-15px) rotate(-5deg);
+            opacity: 0.2;
+          }
+          100% {
+            transform: translateY(0px) rotate(0deg);
+            opacity: 0.3;
+          }
+        }
+      `;
+      document.head.appendChild(style);
+    }
+    
+    // 移动端菜单切换
+    function setupMobileMenu() {
+      const menuToggle = document.getElementById('menu-toggle');
+      const mobileMenu = document.getElementById('mobile-menu');
+      
+      menuToggle.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+      });
+    }
+    
+    // 滚动时导航栏样式变化
+    function setupScrollEffects() {
+      const nav = document.querySelector('nav');
+      
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+          nav.classList.add('py-2');
+          nav.classList.remove('py-4');
+          nav.classList.add('shadow-lg');
+        } else {
+          nav.classList.add('py-4');
+          nav.classList.remove('py-2');
+          nav.classList.remove('shadow-lg');
+        }
+      });
+    }
+    
+    // 平滑滚动
+    function setupSmoothScroll() {
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+          
+          const targetId = this.getAttribute('href');
+          const targetElement = document.querySelector(targetId);
+          
+          if (targetElement) {
+            window.scrollTo({
+              top: targetElement.offsetTop - 80,
+              behavior: 'smooth'
+            });
+            
+            // 关闭移动端菜单
+            const mobileMenu = document.getElementById('mobile-menu');
+            if (!mobileMenu.classList.contains('hidden')) {
+              mobileMenu.classList.add('hidden');
+            }
+          }
+        });
+      });
+    }
+    
+    // 页面加载完成后执行
+    window.addEventListener('load', () => {
+      addCustomFloatAnimation();
+      createFloatingImages();
+      setupMobileMenu();
+      setupScrollEffects();
+      setupSmoothScroll();
+    });
+  </script>
+</body>
+</html>
